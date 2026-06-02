@@ -17,7 +17,7 @@ RUN apk add --no-cache ca-certificates git
 RUN apk add build-base
 WORKDIR /src
 
-# restore dependencies
+# restore dependencies Webhook test trigger - 1
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
