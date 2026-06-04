@@ -1,4 +1,4 @@
-replicaCount: 1
+ireplicaCount: 1
 
 image:
   repository: 391824190618.dkr.ecr.us-east-1.amazonaws.com/frontend
@@ -6,7 +6,7 @@ image:
   pullPolicy: IfNotPresent
 
 service:
-  type: LoadBalancer
+  type: ClusterIP
   port: 80
   targetPort: 8080
 
