@@ -59,19 +59,13 @@ spec:
               value: "0"
 
           readinessProbe:
-            httpGet:
-              path: "/_healthz"
+            tcpSocket:
               port: 7070
-              httpHeaders:
-                - name: Cookie
-                  value: shop_session-id=x-readiness-probe
             initialDelaySeconds: 10
+            periodSeconds: 10
 
           livenessProbe:
-            httpGet:
-              path: "/_healthz"
+            tcpSocket:
               port: 7070
-              httpHeaders:
-                - name: Cookie
-                  value: shop_session-id=x-liveness-probe
             initialDelaySeconds: 10
+            periodSeconds: 20
