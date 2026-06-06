@@ -35,18 +35,5 @@ spec:
             - name: DISABLE_PROFILER
               value: "1"
 
-          readinessProbe:
-            periodSeconds: 5
-            exec:
-              command:
-                - "/bin/grpc_health_probe"
-                - "-addr=:50051"
-
-          livenessProbe:
-            exec:
-              command:
-                - "/bin/grpc_health_probe"
-                - "-addr=:50051"
-
           resources:
 {{ toYaml .Values.resources | indent 12 }}
