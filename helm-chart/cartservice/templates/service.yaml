@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend
+  name: cartservice
 
 spec:
   type: {{ .Values.service.type }}
 
   selector:
-    app: frontend
+    app: cartservice
 
   ports:
     - name: http
