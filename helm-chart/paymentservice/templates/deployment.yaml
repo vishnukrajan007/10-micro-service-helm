@@ -38,15 +38,11 @@ spec:
 
           readinessProbe:
             exec:
-              command:
-                - "/bin/grpc_health_probe"
-                - "-addr=:50051"
+              command: ["/bin/grpc_health_probe", "-addr=:50051"]
 
           livenessProbe:
             exec:
-              command:
-                - "/bin/grpc_health_probe"
-                - "-addr=:50051"
+              command: ["/bin/grpc_health_probe", "-addr=:50051"]
 
           resources:
 {{ toYaml .Values.resources | indent 12 }}
