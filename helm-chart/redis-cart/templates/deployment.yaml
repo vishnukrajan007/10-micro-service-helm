@@ -26,16 +26,6 @@ spec:
           ports:
             - containerPort: {{ .Values.containerPort }}
 
-          readinessProbe:
-            tcpSocket:
-              port: 6379
-            periodSeconds: 5
-
-          livenessProbe:
-            tcpSocket:
-              port: 6379
-            periodSeconds: 5
-
           volumeMounts:
             - name: redis-data
               mountPath: /data
