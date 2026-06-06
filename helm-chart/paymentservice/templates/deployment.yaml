@@ -36,24 +36,17 @@ spec:
             - name: DISABLE_PROFILER
               value: "1"
 
-          # ✅ FIX: Replace grpc probe with HTTP health check
           readinessProbe:
-            httpGet:
-              path: /health
-              port: {{ .Values.containerPort }}
-            initialDelaySeconds: 5
-            periodSeconds: 10
-            timeoutSeconds: 2
-            failureThreshold: 3
+            exec:
+              command:
+                - "/bin/grpc_health_probe"
+                - "-addr=:50051"
 
           livenessProbe:
-            httpGet:
-              path: /health
-              port: {{ .Values.containerPort }}
-            initialDelaySeconds: 10
-            periodSeconds: 15
-            timeoutSeconds: 2
-            failureThreshold: 3
+            exec:
+              command:
+                - "/bin/grpc_health_probe"
+                - "-addr=:50051"
 
           resources:
 {{ toYaml .Values.resources | indent 12 }}
