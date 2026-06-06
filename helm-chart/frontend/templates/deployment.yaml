@@ -1,5 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
   name: frontend
   labels:
@@ -24,6 +25,7 @@ spec:
 
       containers:
         - name: frontend
+
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
 
@@ -58,20 +60,5 @@ spec:
             - name: ENABLE_PROFILER
               value: "0"
 
-          readinessProbe:
-            httpGet:
-              path: "/_healthz"
-              port: 8080
-              httpHeaders:
-                - name: Cookie
-                  value: shop_session-id=x-readiness-probe
-            initialDelaySeconds: 10
-
-          livenessProbe:
-            httpGet:
-              path: "/_healthz"
-              port: 8080
-              httpHeaders:
-                - name: Cookie
-                  value: shop_session-id=x-liveness-probe
-            initialDelaySeconds: 10
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
