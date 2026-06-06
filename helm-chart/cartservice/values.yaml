@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: 391824190618.dkr.ecr.us-east-1.amazonaws.com/frontend
+  repository: 391824190618.dkr.ecr.us-east-1.amazonaws.com/cartservice
   tag: 71ee002 
   pullPolicy: IfNotPresent
 
