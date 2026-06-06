@@ -2,15 +2,15 @@ replicaCount: 1
 
 image:
   repository: 391824190618.dkr.ecr.us-east-1.amazonaws.com/cartservice
-  tag: 71ee002 
+  tag: 71ee002
   pullPolicy: IfNotPresent
 
 service:
-  type: NodePort
-  port: 80
-  targetPort: 8080
+  type: ClusterIP
+  port: 7070
+  targetPort: 7070
 
-containerPort: 8080
+containerPort: 7070
 
 env:
   PRODUCT_CATALOG_SERVICE_ADDR: productcatalogservice:3550
