@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: cartservice
   labels:
-    app: frontend
+    app: cartservice
 
 spec:
   replicas: {{ .Values.replicaCount }}
 
   selector:
     matchLabels:
-      app: frontend
+      app: cartservice
 
   template:
     metadata:
       labels:
-        app: frontend
+        app: cartservice
       annotations:
         sidecar.istio.io/rewriteAppHTTPProbers: "true"
 
@@ -23,7 +23,7 @@ spec:
       serviceAccountName: default
 
       containers:
-        - name: frontend
+        - name: cartservice
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
 
