@@ -51,16 +51,12 @@ spec:
               value: "cartservice:7070"
 
           readinessProbe:
-            exec:
-              command:
-                - "/bin/grpc_health_probe"
-                - "-addr=:5050"
+               tcpSocket:
+                  port: 5050
 
           livenessProbe:
-            exec:
-              command:
-                - "/bin/grpc_health_probe"
-                - "-addr=:5050"
+             tcpSocket:
+                  port: 5050
 
           resources:
 {{ toYaml .Values.resources | indent 12 }}
