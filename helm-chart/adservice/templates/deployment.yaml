@@ -34,20 +34,17 @@ spec:
               value: "9555"
 
           readinessProbe:
-            initialDelaySeconds: 20
-            periodSeconds: 15
-            exec:
-              command:
-                - "/bin/grpc_health_probe"
-                - "-addr=:9555"
-
+            tcpSocket:
+              port: 9555
+            initialDelaySeconds: 5
+            periodSeconds: 10
+ 
           livenessProbe:
-            initialDelaySeconds: 20
-            periodSeconds: 15
-            exec:
-              command:
-                - "/bin/grpc_health_probe"
-                - "-addr=:9555"
+            tcpSocket:
+              port: 9555
+            initialDelaySeconds: 10
+            periodSeconds: 20
+          
 
           resources:
 {{ toYaml .Values.resources | indent 12 }}
