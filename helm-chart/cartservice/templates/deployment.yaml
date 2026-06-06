@@ -61,7 +61,7 @@ spec:
           readinessProbe:
             httpGet:
               path: "/_healthz"
-              port: 8080
+              port: 7070
               httpHeaders:
                 - name: Cookie
                   value: shop_session-id=x-readiness-probe
@@ -70,7 +70,7 @@ spec:
           livenessProbe:
             httpGet:
               path: "/_healthz"
-              port: 8080
+              port: 7070
               httpHeaders:
                 - name: Cookie
                   value: shop_session-id=x-liveness-probe
