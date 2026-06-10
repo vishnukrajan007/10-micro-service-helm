@@ -1,0 +1,17 @@
+name: ShippingService CI
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/shippingservice/**'
+
+jobs:
+  call-workflow:
+    uses: ./.github/workflows/reusable-build.yml
+    with:
+      service_name: shippingservice
+    secrets: inherit
