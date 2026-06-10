@@ -1,0 +1,17 @@
+name: ProductCatalogService CI
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/productcatalogservice/**'
+
+jobs:
+  call-workflow:
+    uses: ./.github/workflows/reusable-build.yml
+    with:
+      service_name: productcatalogservice
+    secrets: inherit
