@@ -1,0 +1,17 @@
+name: LoadGenerator CI
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/loadgenerator/**'
+
+jobs:
+  call-workflow:
+    uses: ./.github/workflows/reusable-build.yml
+    with:
+      service_name: loadgenerator
+    secrets: inherit
