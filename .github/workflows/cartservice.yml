@@ -37,7 +37,7 @@ jobs:
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v6
         with:
-          context: ./src/cartservice
+          context: ./src/cartservice/src
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/cartservice:${{ steps.tag.outputs.image_tag }}
