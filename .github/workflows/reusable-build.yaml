@@ -1,0 +1,68 @@
+name: Reusable Build
+
+on:
+  workflow_call:
+    inputs:
+      service_name:
+        required: true
+        type: string
+
+jobs:
+
+  docker-build-push:
+    runs-on: ubuntu-latest
+
+    outputs:
+      image_tag: ${{ steps.tag.outputs.image_tag }}
+
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - name: Generate Image Tag
+        id: tag
+        run: |
+          IMAGE_TAG=$(git rev-parse --short HEAD)
+          echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+      - uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - uses: docker/build-push-action@v6
+        with:
+          context: ./src/${{ inputs.service_name }}
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ inputs.service_name }}:${{ steps.tag.outputs.image_tag }}
+
+  update-gitops:
+    needs: docker-build-push
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Clone GitOps Repo
+        run: |
+          git clone https://x-access-token:${{ secrets.GITOPS_PAT }}@github.com/vishnukrajan007/10-microservices-gitops.git
+
+      - name: Update values.yaml
+        run: |
+          cd 10-microservices-gitops
+
+          sed -i "s|repository:.*|repository: ${{ secrets.DOCKERHUB_USERNAME }}/${{ inputs.service_name }}|g" ${{ inputs.service_name }}/values.yaml
+
+          sed -i "s|tag:.*|tag: ${{ needs.docker-build-push.outputs.image_tag }}|g" ${{ inputs.service_name }}/values.yaml
+
+      - name: Commit and Push
+        run: |
+          cd 10-microservices-gitops
+
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+          git add .
+          git commit -m "Update ${{ inputs.service_name }} image" || exit 0
+
+          git push origin main
