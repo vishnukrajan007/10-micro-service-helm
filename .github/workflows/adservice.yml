@@ -42,7 +42,7 @@ jobs:
 
       - name: Clone GitOps Repo
         run: |
-          git clone https://x-access-token:${{ secrets.GITOPS_PAT }}@github.com/YOUR_GITHUB_USERNAME/10-microservices-gitops.git
+          git clone https://x-access-token:${{ secrets.GITOPS_PAT }}@github.com/vishnukrajan007/10-microservices-gitops.git
 
       - name: Update values.yaml
         run: |
