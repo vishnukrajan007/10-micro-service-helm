@@ -1,0 +1,17 @@
+name: CurrencyService CI
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/currencyservice/**'
+
+jobs:
+  call-workflow:
+    uses: ./.github/workflows/reusable-build.yml
+    with:
+      service_name: currencyservice
+    secrets: inherit
