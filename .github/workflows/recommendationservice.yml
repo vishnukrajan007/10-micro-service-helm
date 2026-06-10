@@ -1,0 +1,17 @@
+name: RecommendationService CI
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/recommendationservice/**'
+
+jobs:
+  call-workflow:
+    uses: ./.github/workflows/reusable-build.yml
+    with:
+      service_name: recommendationservice
+    secrets: inherit
